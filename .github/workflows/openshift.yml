@@ -154,14 +154,14 @@ jobs:
       with:
         oc: 4
 
-    # # https://github.com/redhat-actions/oc-login#readme
-    # - name: Log in to OpenShift
-    #   uses: redhat-actions/oc-login@v1
-    #   with:
-    #     openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
-    #     openshift_token: ${{ env.OPENSHIFT_TOKEN }}
-    #     insecure_skip_tls_verify: true
-    #     namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+    # https://github.com/redhat-actions/oc-login#readme
+    - name: Log in to OpenShift
+      uses: redhat-actions/oc-login@v1
+      with:
+        openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+        openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+        insecure_skip_tls_verify: true
+        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
     # # This step should create a deployment, service, and route to run your app and expose it to the internet.
     # # https://github.com/redhat-actions/oc-new-app#readme
@@ -187,6 +187,6 @@ jobs:
     #     echo
     #     echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
 
-    - name: Confirm operation status
-      run: |
-        echo "Operation complete!"
+    # - name: Confirm operation status
+    #   run: |
+    #     echo "Operation complete!"
