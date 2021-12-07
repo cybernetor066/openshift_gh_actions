@@ -33,7 +33,7 @@ env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   # 🖊️ EDIT to set the kube context's namespace after login. Leave blank to use your user's default namespace.
-  OPENSHIFT_NAMESPACE: "default"
+  OPENSHIFT_NAMESPACE: ""
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
   APP_NAME: "dotnet-app"
@@ -46,8 +46,8 @@ env:
   # 🖊️ EDIT to change the image registry settings.
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
   IMAGE_REGISTRY: docker.io
-  IMAGE_REGISTRY_USER: ${{ secrets.DOCKER_USER }}
-  IMAGE_REGISTRY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+  IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
