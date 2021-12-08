@@ -131,7 +131,6 @@ jobs:
 
     # https://github.com/redhat-actions/buildah-build#readme
     - name: Build from Dockerfile
-      working-directory: ${{ env.WORKING_DIRECTORY }}
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
@@ -141,6 +140,7 @@ jobs:
         # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
+      working-directory: ${{ env.WORKING_DIRECTORY }}
         dockerfiles: |
           ./scripts/Dockerfile
 
