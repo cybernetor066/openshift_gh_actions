@@ -141,7 +141,7 @@ jobs:
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
-          ${{ env.WORKING_DIRECTORY }}/Dockerfile
+          ${{ env.WORKING_DIRECTORY }}/scripts/Dockerfile
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
