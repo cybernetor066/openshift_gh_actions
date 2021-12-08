@@ -131,7 +131,6 @@ jobs:
 
     # https://github.com/redhat-actions/buildah-build#readme
     - name: Build from Dockerfile
-      working-directory: ${{ env.WORKING_DIRECTORY }}
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
@@ -142,7 +141,7 @@ jobs:
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
-          ./scripts/Dockerfile
+          ${{ env.WORKING_DIRECTORY }}/scripts/Dockerfile
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
@@ -162,14 +161,14 @@ jobs:
       with:
         oc: 4
 
-    # https://github.com/redhat-actions/oc-login#readme
-    - name: Log in to OpenShift
-      uses: redhat-actions/oc-login@v1
-      with:
-        openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
-        openshift_token: ${{ env.OPENSHIFT_TOKEN }}
-        insecure_skip_tls_verify: true
-        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+    # # https://github.com/redhat-actions/oc-login#readme
+    # - name: Log in to OpenShift
+    #   uses: redhat-actions/oc-login@v1
+    #   with:
+    #     openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+    #     openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+    #     insecure_skip_tls_verify: true
+    #     namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
     # # This step should create a deployment, service, and route to run your app and expose it to the internet.
     # # https://github.com/redhat-actions/oc-new-app#readme
