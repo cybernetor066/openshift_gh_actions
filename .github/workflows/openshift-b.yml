@@ -136,7 +136,7 @@ jobs:
       with:
         image: cybernetor066/dotnetimage
         tags: ${{ env.IMAGE_TAGS }}
-        working-directory: ${{ env.WORKING_DIRECTORY }}
+        workdir: ${{ env.WORKING_DIRECTORY }}
 
         # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
