@@ -36,7 +36,7 @@ env:
   OPENSHIFT_NAMESPACE: ""
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
-  APP_NAME: "dotnet-app"
+  APP_NAME: "dotnet-app-a"
 
   # 🖊️ EDIT with the port your application should be accessible on.
   # If the container image exposes *exactly one* port, this can be left blank.
@@ -49,15 +49,19 @@ env:
   IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
   IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
+  WORKING_DIRECTORY: ./Project-A
+
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: "v1.0"
+  # IMAGE_TAGS: "v1.0"
+  IMAGE_TAGS: "project-a-v1.0"
 
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   push:
     # Edit to the branch(es) you want to build and deploy on each push.
     branches: [ master ]
+    paths: [ 'Project-A/**' ]   # Trigger this workflow anytime you push to this Directory
 
 jobs:
   openshift-ci-cd:
@@ -113,17 +117,21 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Determine app name
+      working-directory: ${{ env.WORKING_DIRECTORY }}
       if: env.APP_NAME == ''
       run: |
         echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
 
     - name: Determine image tags
+      working-directory: ${{ env.WORKING_DIRECTORY }}
       if: env.IMAGE_TAGS == ''
       run: |
         echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
+
     # https://github.com/redhat-actions/buildah-build#readme
     - name: Build from Dockerfile
+      working-directory: ${{ env.WORKING_DIRECTORY }}
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
@@ -134,7 +142,7 @@ jobs:
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
-          ./Dockerfile
+          ./scripts/Dockerfile
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
